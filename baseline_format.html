@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Zeph 3D - Funnel and Cap</title>
+		<title>Zeph 3D - BASELINE FORMAT</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./assets/css/main.css" />
@@ -17,13 +17,32 @@
 			justify-content: center;
 		}
 
+		div.scroll-container {
+			background-color: #333;
+			overflow: auto;
+			white-space: nowrap;
+			padding: 10px;
+		}
+
+		div.scroll-container img {
+			padding: 10px;
+		}
+
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.square {
+			height: 40dvh;
+		}
 	</style>
 	<body class="is-preload">
 
 		<!-- Header -->
 			<section id="header">
 				<div class="inner">
-					<h1>Welcome to the <strong>Funnel and Cap</strong></h1>
+					<h1>Welcome to the <strong>Baseline Format</strong></h1>
 					<p><a href="./3DModels.html">Go Back</a></p>
 					<ul class="actions special">
 						<li><a href="#one" class="button scrolly">Discover</a></li>
@@ -34,20 +53,24 @@
 		<!-- One -->
 			<section id="one" class="main style1">
 				<div class="container">
+					<div class="scroll-container">
+						<img src="images/forky.png" class="square">
+					</div>
 					<div class="row gtr-150 ctr">
 						<div class="col-6 col-12-medium">
-                            <span class="image fit"><img src="images/forky.png" alt="" /></span>
+							
 							<header class="major special">
-								<h2 class="ctrt">About this Project.</h2>
+								<h2 class="ctrt" style="padding-top: 10dvh;">About this Project.</h2>
 							</header>
-							<p></p>
+                            <p></p>
 							<h5>Things used in the project include:</h5>
 							<ol>
 								<li>3D Printer</li>
-								<li>Resin Bottle (AnyCubic or Elegoo)</li>
 							</ol>
 						</div>
-						
+						<pre><code>
+// Input here
+                        </code></pre>
 					</div>
 				</div>
 			</section>
