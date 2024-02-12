@@ -34,32 +34,227 @@
 		<!-- One -->
 			<section id="one" class="main style1">
 				<div class="container">
+					<div class="scroll-container">
+						<img src="images/ttd.png" class="square">
+					</div>
 					<div class="row gtr-150 ctr">
 						<div class="col-6 col-12-medium">
-                            <span class="image fit"><img src="images/forky.png" alt="" /></span>
 							<header class="major special">
-								<h2 class="ctrt">About this Project.</h2>
+								<h2 class="ctrt" style="padding-top: 10dvh;">About this Project.</h2>
 							</header>
 							<p>Upon heading to university, we observed our dog becoming uneasy, often resting outside my room. Recognizing this, I devised a treat dispenser for him whenever he lingered at my door. After he accidentally damaged the sensor, I modified it to function on a timer. Now, the dispenser delivers treats to soothe him during prolonged waits.
 
 								In a recent upgrade, I connected the treat dispenser to a website, allowing me to control it from anywhere globally. This not only ensures my dog receives treats at his whim but also adds a layer of convenience for me, offering the ability to pamper him even when I'm far away. It's a delightful solution that brings comfort to my furry friend and a touch of innovation to our daily routine.</p>
 							<h5>Things used in the project include:</h5>
 							<ol>
+								<li>Computer (Mac, Linux, Windows)</li>
 								<li><a href="https://www.raspberrypi.com/products/raspberry-pi-pico/?variant=raspberry-pi-pico-w">Raspberry Pi Pico W</a></li>
+								<li>Mrico USB cable</li>
 								<li>3D Printer</li>
+								<li>Hot Glue Gun</li>
+								<li>Hot Glue</li>
+								<li>Soldering Iron</li>
+								<li>Solder</li>
+								<li>Wire's</li>
 								<li><a href="https://www.digikey.ca/en/products/detail/adafruit-industries-llc/918/5629415?utm_adgroup=&utm_source=google&utm_medium=cpc&utm_campaign=PMax%20Product_Low%20ROAS%20Categories&utm_term=&productid=5629415&utm_content=&utm_id=go_cmp-20291741422_adg-_ad-__dev-c_ext-_prd-5629415_sig-EAIaIQobChMImMnz1P74gwMVdEZHAR2BmAMAEAQYAyABEgJ-W_D_BwE&gad_source=1&gclid=EAIaIQobChMImMnz1P74gwMVdEZHAR2BmAMAEAQYAyABEgJ-W_D_BwE">Stepper Motor</a> and Driver</li>
 							</ol>
 						
-							<pre><code>
+							<pre>
+								<code>
 // Code in MircoPython
 // File name is main.py
 // You will have to add mircopyhton to your Pico W.
 // The best way to do this is though Thonny and there 
 // are many videos showing how this can be done.
 
-import os
-print("Hello, World")
-							</code></pre>
+// Replace the SSID and PASSWORD with your own and wait for it to Connect
+
+import network
+import socket
+import time
+import machine  
+from machine import Pin
+
+in1 = Pin(2,Pin.OUT)
+in2 = Pin(3,Pin.OUT)
+in3 = Pin(4,Pin.OUT)
+in4 = Pin(5,Pin.OUT)
+
+pins = [in1,in2,in3,in4]
+seqs = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+intled = machine.Pin("LED", machine.Pin.OUT)
+
+desp = 1
+
+def Motor():
+    max = 0
+    #print("Motor Running")
+    while max < 1020:
+        for step in seqs:
+            max = max + 1
+            for i in range(len(pins)):
+                pins[i].value(step[i])
+                time.sleep(0.001)
+    pins[3].value(0)
+
+    
+
+
+//------------------REPLACE-BELOW-------------------//
+ssid        =   **************************************
+password    =   **************************************
+//------------------REPLACE-ABOVE-------------------//
+
+
+
+
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
+
+#ap = network.WLAN(network.AP_IF)
+#ap.config(essid = ssid, password=password)
+#ap.active(True)
+##print(ap.ifconfig())
+
+html = """
+&lt!DOCTYPE html&gt
+    &lthtml&gt
+        &ltstyle&gt
+            .textSize{
+                font-size: 10vh;
+            }
+
+            .button {
+              border: none;
+              color: white;
+              padding: 16px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 5vh;
+              margin: 4px 2px;
+              transition-duration: 0.4s;
+              cursor: pointer;
+            }
+
+            .button1 {
+              background-color: white; 
+              color: black; 
+              border: 2px solid #4CAF50;
+            }
+
+            .button1:hover {
+              background-color: #4CAF50;
+              color: white;
+            }
+
+            .button1:input checked + .button1{
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .button2 {
+              background-color: white; 
+              color: black; 
+              border: 2px solid #E8300B;
+            }
+
+            .button2:hover {
+              background-color: #E8300B;
+              color: white;
+            }
+            &lt/style&gt
+            &lthead&gt &lttitle&gtPico W&lt/title&gt &lt/head&gt
+            &ltcenter&gt&ltbody&gt &lth1 class="textSize"&gtTeddys Doggo Treats&lt/h1&gt
+                &ltp&gt&lt/p&gt
+                &ltp&gt
+                &ltform action="./dispense"&gt
+                &ltinput class="button button1" type="submit" value="Dispense Treat"&lt/&gt
+                &lt/form&gt
+                &lt/p&gt
+                &ltp&gt
+                &ltform action="./empty"&gt
+                &ltinput class="button button2" type="submit" value="Reset"&lt/&gt
+                &lt/form&gt
+                &lt/p&gt
+                &ltbr&gt
+            &lt/body&gt
+        &lt/center&gt
+    &lt/html&gt
+"""
+ 
+# Wait for connect or fail
+max_wait = 10
+while max_wait > 0:
+    if wlan.status() < 0 or wlan.status() >= 3:
+        break
+    max_wait -= 1
+    print('waiting for connection...')
+    time.sleep(1)
+
+# Handle connection error
+if wlan.status() != 3:
+    raise RuntimeError('network connection failed')
+else:
+    print('connected')
+    status = wlan.ifconfig()
+    print( 'ip = ' + status[0] )
+ 
+# Open socket
+addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+ 
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
+ 
+#print('listening on', addr)
+
+stateis = ""
+ 
+# Listen for connections
+while True:
+    try:
+        cl, addr = s.accept()
+        #print('client connected from', addr)
+
+        request = cl.recv(1024)
+        #print(request)
+
+        request = str(request)
+        led_on = request.find('/dispense')
+        led_off = request.find('/empty')
+        ##print( 'led on = ' + str(led_on))
+        ##print( 'led off = ' + str(led_off))
+
+        if led_on == 6:
+            #print("Treat Dispensed!!")
+            intled.value(1)
+            stateis = '&ltp class="textSize"&gt Treats Dispensed ' + str(desp) + "&lt/p&gt"
+            Motor()
+            desp = desp + 1
+            intled.value(0)
+            
+
+        if led_off == 6:
+            #print("Empty")
+            intled.value(0)
+            stateis = '&ltp class="textSize"&gtNext Bag&lt/p&gt'
+            desp = 1
+     
+        response = "&ltcenter&gt" + html + "" + stateis + "&lt/center&gt"
+        
+        cl.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
+        cl.send(response)
+        cl.close()
+ 
+    except OSError as e:
+        cl.close()
+        #print('connection closed')
+
+							</code>
+						</pre>
 						</div>
 						
 					</div>

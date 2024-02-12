@@ -29,3 +29,10 @@ Credits:
 	Other:
 		jQuery (jquery.com)
 		Responsive Tools (github.com/ajlkn/responsive-tools)
+
+
+This is a site for my 3D prints that I have printed not all of the designs that are seen on th epage are made by me.
+If this is the case then a note will be placed on the page as well as the link to the oringial design.
+However most of the other work is my designs and these will also have links to the work and where one might be able
+to download and print yourself this also goes for code. You can copy the code from the bottom of the page for the 
+project you want to make yourself. 
